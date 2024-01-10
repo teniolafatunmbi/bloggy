@@ -5,24 +5,42 @@ import { useQuery } from '@tanstack/react-query';
 
 const useArticles = () => {
     const [searchVal, setSearchVal] = useState('');
+    const [articles, setArticles] = useState<Article[]>();
 
     const getArticles = async () => {
-        let params = {};
-        if (searchVal) {
-            params = { title: searchVal }
+        const params = {};
+        
+        if (!articles) {
+            const { data } = await $http.get('/posts', {params});
+
+            setArticles(data);
+        
+            return data as Article[];
         }
 
-        const { data } = await $http.get('/posts', {params});
-    
-        return data as Article[]
+        if (searchVal) {
+            const filteredArticles: Article[] = [];
+
+            articles.forEach((article) => {
+                if (article.title.includes(searchVal)) {
+                    filteredArticles.push(article);
+                }
+            });
+
+            setArticles(filteredArticles);
+
+            return filteredArticles;
+        }
+        
+        return articles;
     }
 
-    const { data, isLoading, refetch } = useQuery({
+    const { isLoading, refetch } = useQuery({
         queryKey: ['articles', searchVal],
-        queryFn: getArticles
+        queryFn: getArticles,
     });
 
-    return { data, isLoading, refetch, setSearchVal, searchVal }
+    return { articles, setArticles, isLoading, refetch, setSearchVal, searchVal }
 }
 
 export default useArticles;

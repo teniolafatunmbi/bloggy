@@ -1,11 +1,11 @@
 import ArticleCard from '@/components/article/article'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import useArticles from '@/hooks/use-articles'
-import { useRef } from 'react'
+import { ArticlesContext } from '@/context'
+import { useContext, useRef } from 'react'
 
 const ViewArticles = () => {
-  const { data, isLoading, setSearchVal } = useArticles();
+  const { articles, isLoading, setSearchVal } = useContext(ArticlesContext);
   const searchRef = useRef<HTMLInputElement>(null)
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,8 +39,8 @@ const ViewArticles = () => {
           isLoading && <>Loading articles ...</>
         }
         {
-          data && data.map((article) => {
-            return <ArticleCard article={article} />
+          articles && articles.map((article) => {
+            return <ArticleCard key={article.id} article={article} />
           })
         }
       </div>
@@ -49,4 +49,4 @@ const ViewArticles = () => {
   )
 }
 
-export default ViewArticles;
+export { ViewArticles };

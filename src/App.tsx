@@ -1,9 +1,10 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ViewArticles from "./pages/articles";
 import CreateArticle from "./pages/create-article";
 import Layout from "./components/layout";
 import NotFound from "./pages/not-found";
+import { Toaster } from "./components/toaster";
+import { ViewArticles } from "./pages/articles";
 
 
 
@@ -33,6 +34,7 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
+        <Toaster />
         <BrowserRouter>
           <Layout>
             <Routes>
