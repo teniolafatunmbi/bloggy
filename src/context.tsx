@@ -26,12 +26,14 @@ export const ArticlesProvider = ({ children }: PropsWithChildren) => {
     const [usersCache, setUsersCache] = useState<UsersCache>({});
 
     const updateArticles = (article: Article) => {
-        articlesCache.current = [article, ...articlesCache.current!];
+        if (articlesCache.current) {
+            articlesCache.current = [article, ...articlesCache.current!];
 
-        setArticles(articlesCache.current);
-        console.log({article}, articlesCache.current[0])
-
-        return articlesCache.current;
+            setArticles(articlesCache.current);
+            console.log({article}, articlesCache.current[0])
+    
+            return articlesCache.current;
+        }
     }
 
     useEffect(() => {
@@ -48,17 +50,20 @@ export const ArticlesProvider = ({ children }: PropsWithChildren) => {
         if (articles) {
             const filteredArticles = new Set<Article>()
             
-            articlesCache.current!.forEach((article) => {
-                const articleAuthor = usersCache[article.userId];
-                if (article.title.toLowerCase().includes(searchVal)) {
-                    filteredArticles.add(article);
-                }
-                if (articleAuthor.name.toLowerCase().includes(searchVal.toLowerCase())) {
-                    filteredArticles.add(article);
-                }
-            });
-            const filteredArticlesArray = Array.from(filteredArticles);
-            setArticles(filteredArticlesArray);
+            if (articlesCache.current) {
+                articlesCache.current!.forEach((article) => {
+                    const articleAuthor = usersCache[article.userId];
+                    if (article.title.toLowerCase().includes(searchVal)) {
+                        filteredArticles.add(article);
+                    }
+                    if (articleAuthor.name.toLowerCase().includes(searchVal.toLowerCase())) {
+                        filteredArticles.add(article);
+                    }
+                });
+                const filteredArticlesArray = Array.from(filteredArticles);
+                setArticles(filteredArticlesArray);
+            }
+            
         }
     }, [searchVal]);
   
