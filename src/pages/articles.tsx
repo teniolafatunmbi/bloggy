@@ -15,6 +15,7 @@ const ViewArticles = () => {
 
   return (
     <>
+    <div className='flex flex-row justify-between'>
       <form onSubmit={handleSearch} className='flex flex-row items-center gap-3'>
         <Input 
           type="search" 
@@ -33,15 +34,27 @@ const ViewArticles = () => {
           Search
         </Button>
       </form>
+    
+      <div>
+        {!isLoading && articles && articles.length > 0 && <>Total results: {articles.length}</>}
+      </div>
+    </div>
+      
 
       <div className='grid grid-cols-2 gap-4'>
         {
           isLoading && <>Loading articles ...</>
         }
         {
-          articles && articles.map((article) => {
+          articles && articles.length > 0 && (
+            articles.map((article) => {
             return <ArticleCard key={article.id} article={article} />
           })
+          )
+        }
+
+        {
+          articles && articles.length == 0 && <div>No articles found</div>
         }
       </div>
     </>

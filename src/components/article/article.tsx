@@ -4,7 +4,7 @@ import { truncateText } from '@/lib'
 import { useContext, useEffect, useState } from 'react'
 import { ArticlesContext } from '@/context'
 
-const ArticleCard = ({ article }: {article: Article}) => {
+const ArticleCard = ({ article }: { article: Article}) => {
   const { usersCache } = useContext(ArticlesContext);
   const [articleAuthor, setArticleAuthor] = useState<User>();
 

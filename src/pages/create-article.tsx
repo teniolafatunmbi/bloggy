@@ -15,14 +15,31 @@ import { useContext } from 'react'
 
 const CreateArticle = () => {
   const { toast } = useToast();
-  const { articles, setArticles, setUsersCache } = useContext(ArticlesContext);
+  const { setUsersCache, updateArticles, usersCache, articlesCache } = useContext(ArticlesContext);
 
   const addUserToCache = (user: User) => {
     setUsersCache((prev) => {
       prev[`${user.id}`] = user;
 
       return prev;
-    })
+    });
+  }
+
+
+  const getLastUserId = () => {
+    const userIds = Object.keys(usersCache).sort((a, b) => (+a) - (+b));
+
+    return +(userIds.slice(-1));
+  }
+
+  const getLastArticleId = () => {
+    if (!articlesCache.current) {
+      return 101;
+    }
+
+    const articleIds = articlesCache.current.map((article) => article.id).sort((a, b) => (+a) - (+b));
+
+    return +(articleIds.slice(-1));
   }
 
   const formik = useFormik({
@@ -36,12 +53,13 @@ const CreateArticle = () => {
     },
     validationSchema: createArticleSchema,
     onSubmit: async (values) => {
-      const user = createUser({ name: `${values.firstname} ${values.lastname}`, email: values.email, phone: values.phone});
+      const lastUserId = getLastUserId();
+      const user = createUser(lastUserId, { name: `${values.firstname} ${values.lastname}`, email: values.email, phone: values.phone});
 
       addUserToCache(user);
-      
-      const article = await createArticle({title: values.title, userId: user.id, body: values.content});
-      setArticles([article, ...articles!]);
+      const lastArticleId = getLastArticleId();
+      const article = await createArticle(lastArticleId, {title: values.title, userId: user.id, body: values.content});
+      updateArticles(article)
 
       toast({
         title: "Article created",

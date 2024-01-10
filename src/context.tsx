@@ -10,6 +10,8 @@ type ContextState = {
     isLoading: boolean,
     usersCache: UsersCache,
     setUsersCache: Dispatch<React.SetStateAction<UsersCache>>,
+    articlesCache: React.MutableRefObject<Article[] | undefined>,
+    updateArticles: (article: Article) => void 
 };
 
 export const ArticlesContext = createContext({} as ContextState);
@@ -20,18 +22,45 @@ type UsersCache = {
 }
 
 export const ArticlesProvider = ({ children }: PropsWithChildren) => {
-    const { articles, setArticles, setSearchVal, isLoading } = useArticles();
+    const { articles, setArticles, searchVal, setSearchVal, isLoading, articlesCache } = useArticles();
     const [usersCache, setUsersCache] = useState<UsersCache>({});
+
+    const updateArticles = (article: Article) => {
+        articlesCache.current = [article, ...articlesCache.current!];
+
+        setArticles(articlesCache.current);
+        console.log({article}, articlesCache.current[0])
+
+        return articlesCache.current;
+    }
 
     useEffect(() => {
         getAllUsers().then((users) => {
             const preCache: UsersCache = {};
             users.forEach((user) => {
-                preCache[`${user.id}`] = user
+                preCache[`${user.id}`] = user;
             });
             setUsersCache(preCache);
         })
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if (articles) {
+            const filteredArticles = new Set<Article>()
+            
+            articlesCache.current!.forEach((article) => {
+                const articleAuthor = usersCache[article.userId];
+                if (article.title.toLowerCase().includes(searchVal)) {
+                    filteredArticles.add(article);
+                }
+                if (articleAuthor.name.toLowerCase().includes(searchVal.toLowerCase())) {
+                    filteredArticles.add(article);
+                }
+            });
+            const filteredArticlesArray = Array.from(filteredArticles);
+            setArticles(filteredArticlesArray);
+        }
+    }, [searchVal]);
   
     return (
         <ArticlesContext.Provider value={{ 
@@ -40,7 +69,9 @@ export const ArticlesProvider = ({ children }: PropsWithChildren) => {
             setSearchVal, 
             isLoading,
             usersCache,
-            setUsersCache
+            setUsersCache,
+            articlesCache,
+            updateArticles
         }}>
             {children}
         </ArticlesContext.Provider>
