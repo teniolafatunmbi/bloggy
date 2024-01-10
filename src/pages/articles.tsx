@@ -1,27 +1,15 @@
 import ArticleCard from '@/components/article/article'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { $http } from '@/lib/http'
-import { Article } from '@/types'
-import { useQuery } from '@tanstack/react-query'
+import useArticles from '@/hooks/use-articles'
 
 const ViewArticles = () => {
-
-  const getArticles = async () => {
-    const { data } = await $http.get('/posts');
-
-    return data as Article[]
-  }
+  const { data, isLoading } = useArticles();
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(e);
   }
-
-  const { data, isLoading } = useQuery({
-    queryKey: ['articles'],
-    queryFn: getArticles
-  })
 
   if (isLoading) {
     return <>Loading articles...</>
