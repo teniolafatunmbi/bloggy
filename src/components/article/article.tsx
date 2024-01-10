@@ -4,9 +4,9 @@ import { truncateText } from '@/lib'
 
 const ArticleCard = ({ article }: {article: Article}) => {
   return (
-        <Card>
-            <CardHeader className='font-medium text-xl mb-3'>{article.title}</CardHeader>
-            <CardContent>{truncateText(article.body, 100)}</CardContent>
+        <Card data-testid="article-card">
+            <CardHeader data-testid="article-title" className='font-medium text-xl mb-3'>{article.title}</CardHeader>
+            <CardContent data-testid="article-content">{truncateText(article.body, 100)}</CardContent>
         </Card>
         )
 }
