@@ -1,7 +1,7 @@
 import { Dispatch, PropsWithChildren, createContext, useEffect, useState } from "react";
 import { Article, User } from "./types";
 import useArticles from "./hooks/use-articles";
-import { getAllUsers } from "./adapter/get-user";
+import { getAllUsers } from "./adapter/user";
 
 type ContextState = {
     articles: Article[] | undefined

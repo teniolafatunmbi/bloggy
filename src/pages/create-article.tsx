@@ -1,5 +1,5 @@
-import { createArticle } from '@/adapter/create-post'
-import { createUser } from '@/adapter/create-user'
+import { createArticle } from '@/adapter/article'
+import { createUser } from '@/adapter/user'
 // import { createUser } from '@/adapter/create-user'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
