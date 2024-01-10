@@ -19,7 +19,7 @@ const Layout = ({ children }: React.PropsWithChildren) => {
             </ul>
         </aside>
 
-        <section className='p-container-base'>
+        <section className='p-container-base col-span-10'>
             {children}
         </section>
     </div>
