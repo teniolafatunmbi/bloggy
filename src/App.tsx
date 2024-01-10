@@ -6,6 +6,7 @@ import Layout from "./components/layout";
 import NotFound from "./pages/not-found";
 
 
+
 const routes = [
   {
     path: '/',
@@ -36,8 +37,8 @@ function App() {
           <Layout>
             <Routes>
               {
-                routes.map((route) => (
-                  <Route element={route.element} path={route.path} />
+                routes.map((route, idx) => (
+                  <Route key={idx} element={route.element} path={route.path} />
                 ))
               }
             </Routes>

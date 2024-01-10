@@ -5,7 +5,7 @@ import useArticles from '@/hooks/use-articles'
 import { useRef } from 'react'
 
 const ViewArticles = () => {
-  const { data, isLoading, setSearchVal, searchVal } = useArticles();
+  const { data, isLoading, setSearchVal } = useArticles();
   const searchRef = useRef<HTMLInputElement>(null)
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
