@@ -8,14 +8,16 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { ArticlesContext } from '@/context'
 import { useToast } from '@/hooks/use-toast'
+import useUserLocation from '@/hooks/use-user-location'
 import { createArticleSchema } from '@/lib/validation'
 import { User } from '@/types'
 import { useFormik } from 'formik'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 
 const CreateArticle = () => {
   const { toast } = useToast();
   const { setUsersCache, updateArticles, usersCache, articlesCache } = useContext(ArticlesContext);
+  const { location } = useUserLocation();
 
   const addUserToCache = (user: User) => {
     setUsersCache((prev) => {
@@ -70,6 +72,9 @@ const CreateArticle = () => {
     } 
   });
 
+  useEffect(() => {
+    formik.setFieldValue('phone', location['country_calling_code']);
+  }, [location])
 
   return (
     <div className='w-full container'>
@@ -87,6 +92,7 @@ const CreateArticle = () => {
                   placeholder='First name' 
                   className='p-3 border rounded-md w-[20rem]' 
                   formik={formik}
+                  value={formik.values.firstname}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
@@ -101,6 +107,7 @@ const CreateArticle = () => {
                   placeholder='Last name' 
                   className='p-3 border rounded-md w-[20rem]' 
                   formik={formik}
+                  value={formik.values.lastname}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
@@ -119,6 +126,7 @@ const CreateArticle = () => {
                   className='p-3 border rounded-md w-[20rem]' 
                   onBlur={formik.handleBlur}
                   formik={formik}
+                  value={formik.values.phone}
                   onChange={formik.handleChange}
                 />
               </div>
@@ -151,6 +159,7 @@ const CreateArticle = () => {
                   className='p-3 border rounded-md w-full' 
                   onBlur={formik.handleBlur}
                   formik={formik}
+                  value={formik.values.title}
                   onChange={formik.handleChange}
                 />
               </div>
@@ -164,6 +173,7 @@ const CreateArticle = () => {
                   rows={6}
                   formik={formik}
                   onBlur={formik.handleChange}
+                  value={formik.values.content}
                   onChange={formik.handleChange}
                 />
               </div>
