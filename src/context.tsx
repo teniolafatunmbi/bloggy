@@ -47,9 +47,7 @@ export const ArticlesProvider = ({ children }: PropsWithChildren) => {
     }, []);
 
     useEffect(() => {
-        if (articles) {
-            
-            console.log("triggered filtering", {searchVal})
+        if (articles) {            
             const filteredArticles = new Set<Article>()
             
             if (articlesCache.current) {
@@ -69,8 +67,6 @@ export const ArticlesProvider = ({ children }: PropsWithChildren) => {
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchVal]);
-
-    console.log({searchVal})
   
     return (
         <ArticlesContext.Provider value={{ 

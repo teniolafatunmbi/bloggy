@@ -58,10 +58,8 @@ test("creates an article and confirms that created article is rendered", async (
 
         if (articlesCache.current) {
             const latestArticle = articlesCache.current[0];
-            console.log({latestArticle})
             expect(latestArticle.title).toBe(formValues.title)
             expect(latestArticle.body).toBe(formValues.content)
-            console.log('test called!!')
         }
 
     })
