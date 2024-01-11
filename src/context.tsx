@@ -65,6 +65,7 @@ export const ArticlesProvider = ({ children }: PropsWithChildren) => {
             }
             
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchVal]);
   
     return (

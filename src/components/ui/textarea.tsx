@@ -8,7 +8,6 @@ export interface TextareaProps
   }
  
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, formik, ...props }, ref) => {
     return (
