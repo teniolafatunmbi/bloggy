@@ -4,7 +4,7 @@ import { ArticlesContext } from '@/context';
 import { Input } from '../ui/input';
 
 const SearchField = () => {
-    const { setSearchVal } = useContext(ArticlesContext);
+    const { setSearchVal, setArticles, articlesCache } = useContext(ArticlesContext);
     const [searchInput, setSearchInput] = useState('');
     const searchRef = useRef<HTMLInputElement>(null);
   
@@ -23,7 +23,12 @@ const SearchField = () => {
           className='p-3 border rounded-md lg:my-2 w-[75%] md:w-1/4' 
           ref={searchRef}
           value={searchInput}
-          onChange={(e) => setSearchInput(e.currentTarget.value)}
+          onChange={(e) => {
+            setSearchInput(e.currentTarget.value);
+            if (e.currentTarget.value == "") {
+              setArticles(articlesCache.current)
+            }
+          }}
         />
 
         <Button 

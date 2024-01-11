@@ -200,7 +200,13 @@ const CreateArticle = () => {
             </section>
             
             <div className='flex flex-row justify-end'>
-              <Button data-testid="create-article" type='submit' variant={"secondary"} className='bg-gray-300'>
+              <Button 
+                data-testid="create-article" 
+                type='submit' 
+                variant={"secondary"} 
+                className='bg-gray-300'
+                disabled={formik.isSubmitting}
+              >
                 Submit
               </Button>
             </div>

@@ -4,7 +4,7 @@ import { ArticlesContext } from '@/context'
 import { useContext } from 'react'
 
 const ViewArticles = () => {
-  const { articles, isLoading, searchVal } = useContext(ArticlesContext);
+  const { articles, isLoading } = useContext(ArticlesContext);
 
   return (
     <>
