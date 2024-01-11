@@ -2,8 +2,7 @@ import { expect, test } from 'vitest';
 import { render, waitFor } from '@testing-library/react';
 import ArticleCard from '@/components/article/article';
 import { ArticlesProvider } from '@/context';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { getUser } from '@/adapter/get-user';
+import { getUser } from '@/adapter/user';
 
 
 test("displays the article card with title, body, and author information", async () => {
@@ -14,23 +13,14 @@ test("displays the article card with title, body, and author information", async
         userId: 1,
         id: 1,
     }
-    const mockQueryClient = new QueryClient({
-        defaultOptions: {
-          queries: {
-            refetchOnWindowFocus: false
-          }
-        }
-    });
 
     const mockUser = await getUser(article.userId);
 
     const articleCard = render(
                 <>
-                <QueryClientProvider client={mockQueryClient}>
                     <ArticlesProvider>
                         <ArticleCard article={article} />
                     </ArticlesProvider>
-                </QueryClientProvider>
                 </>
         );
 

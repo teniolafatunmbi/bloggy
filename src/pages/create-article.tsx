@@ -59,7 +59,7 @@ const CreateArticle = () => {
         formik.setFieldError('phone', 'Phone number must be a valid number')
         return;
       }
-      
+
       const lastUserId = getLastUserId();
       const user = createUser(lastUserId, { name: `${values.firstname} ${values.lastname}`, email: values.email, phone: values.phone});
 
@@ -82,9 +82,10 @@ const CreateArticle = () => {
 
     if (phoneCountryCode) {
       phoneCountryCode = (phoneCountryCode as string).substring(1);
+
+      formik.setFieldValue('phone', phoneCountryCode);
     }
 
-    formik.setFieldValue('phone', phoneCountryCode);
   }, [location])
 
   return (
@@ -97,6 +98,7 @@ const CreateArticle = () => {
               <div>
                 <Label htmlFor='firstname'>First name</Label>
                 <Input 
+                  role='textbox'
                   type="text" 
                   name='firstname'
                   id="firstname"
@@ -112,7 +114,8 @@ const CreateArticle = () => {
               <div>
                 <Label htmlFor='lastname'>Last name</Label>
                 <Input 
-                  type="text" 
+                  type="text"
+                  role='textbox'
                   name='lastname'
                   id="lastname"
                   placeholder='Last name' 
@@ -132,6 +135,7 @@ const CreateArticle = () => {
                 <Input 
                   type="tel" 
                   name='phone'
+                  role='textbox'
                   id="phone"
                   placeholder='Phone number' 
                   className='p-3 border rounded-md w-[20rem]' 
@@ -147,7 +151,8 @@ const CreateArticle = () => {
                 <Input 
                   type="email" 
                   name='email'
-                  id="phone"
+                  role='textbox'
+                  id="email"
                   placeholder='Email' 
                   className='p-3 border rounded-md w-[20rem]' 
                   onBlur={formik.handleBlur}
@@ -161,10 +166,11 @@ const CreateArticle = () => {
 
             <section className='flex flex-col gap-2'>
               <div>
-                <Label htmlFor='email'>Title</Label> <br />
+                <Label htmlFor='title'>Title</Label> <br />
                 <Input 
                   type="text" 
                   name='title'
+                  role='textbox'
                   id="title"
                   placeholder='Title' 
                   className='p-3 border rounded-md w-full' 
@@ -179,6 +185,7 @@ const CreateArticle = () => {
                 <Label htmlFor='content'>Content</Label>
                 <Textarea
                   name='content'
+                  role='textbox'
                   id='content'
                   placeholder='Type your content'
                   rows={6}
@@ -192,7 +199,7 @@ const CreateArticle = () => {
             </section>
             
             <div className='flex flex-row justify-end'>
-              <Button type='submit' variant={"secondary"} className='bg-gray-300'>
+              <Button data-testid="create-article" type='submit' variant={"secondary"} className='bg-gray-300'>
                 Submit
               </Button>
             </div>

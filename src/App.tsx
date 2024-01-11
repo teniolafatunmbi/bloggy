@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CreateArticle from "./pages/create-article";
 import Layout from "./components/layout";
@@ -24,16 +23,8 @@ const routes = [
 ]
 
 function App() {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false
-      }
-    }
-  });
   return (
     <>
-      <QueryClientProvider client={queryClient}>
         <Toaster />
         <BrowserRouter>
           <Layout>
@@ -46,7 +37,6 @@ function App() {
             </Routes>
           </Layout>
         </BrowserRouter>
-      </QueryClientProvider>
     </>
   )
 }

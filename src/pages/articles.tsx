@@ -13,6 +13,7 @@ const ViewArticles = () => {
     setSearchVal(searchRef.current!.value);
   }
 
+  console.log({articles})
   return (
     <>
     <div className='flex flex-row items-center justify-between'>
@@ -43,7 +44,7 @@ const ViewArticles = () => {
 
       <div className='grid grid-cols-2 gap-4'>
         {
-          isLoading && <>Loading articles ...</>
+          isLoading && <>Loading articles...</>
         }
         {
           articles && articles.length > 0 && (
