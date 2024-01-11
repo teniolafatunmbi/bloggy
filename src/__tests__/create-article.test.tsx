@@ -1,30 +1,19 @@
 import { expect, test } from 'vitest';
 import { render, renderHook, screen, waitFor } from '@testing-library/react';
 import { ArticlesProvider } from '@/context';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import CreateArticle from '@/pages/create-article';
 import { ViewArticles } from '@/pages/articles';
 import useArticles from '@/hooks/use-articles';
 
 
 test("creates an article and confirms that created article is rendered", async () => {
-    const mockQueryClient = new QueryClient({
-        defaultOptions: {
-          queries: {
-            refetchOnWindowFocus: false
-          }
-        }
-    });
-
     const articlesContext = renderHook(useArticles);
 
     const createArticleComp = render(
                 <>
-                <QueryClientProvider client={mockQueryClient}>
                     <ArticlesProvider>
                         <CreateArticle />
                     </ArticlesProvider>
-                </QueryClientProvider>
                 </>
         );
 
