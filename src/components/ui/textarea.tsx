@@ -23,10 +23,10 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       />
 
       {formik && (formik?.touched?.[props.name!] && formik?.errors?.[props.name!]) && (
-        <p className="m-0 text-rose-700" style={{fontSize: '13px'}}>
-          <small>{formik?.errors?.[props.name!] as unknown as string}</small>
-        </p>
-    )}
+            <p className="m-0 text-rose-700" style={{fontSize: '13px'}}>
+              <small>{formik?.errors?.[props.name!] as unknown as string}</small>
+            </p>
+        )}
       </>
       
     )

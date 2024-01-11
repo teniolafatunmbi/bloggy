@@ -172,7 +172,7 @@ const CreateArticle = () => {
                   placeholder='Type your content'
                   rows={6}
                   formik={formik}
-                  onBlur={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   value={formik.values.content}
                   onChange={formik.handleChange}
                 />
