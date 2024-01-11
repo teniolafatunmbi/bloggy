@@ -55,6 +55,11 @@ const CreateArticle = () => {
     },
     validationSchema: createArticleSchema,
     onSubmit: async (values) => {
+      if (isNaN(+values.phone)){
+        formik.setFieldError('phone', 'Phone number must be a valid number')
+        return;
+      }
+      
       const lastUserId = getLastUserId();
       const user = createUser(lastUserId, { name: `${values.firstname} ${values.lastname}`, email: values.email, phone: values.phone});
 
@@ -73,7 +78,13 @@ const CreateArticle = () => {
   });
 
   useEffect(() => {
-    formik.setFieldValue('phone', location['country_calling_code']);
+    let phoneCountryCode = (location['country_calling_code']);
+
+    if (phoneCountryCode) {
+      phoneCountryCode = (phoneCountryCode as string).substring(1);
+    }
+
+    formik.setFieldValue('phone', phoneCountryCode);
   }, [location])
 
   return (
