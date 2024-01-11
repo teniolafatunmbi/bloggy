@@ -13,17 +13,16 @@ const ViewArticles = () => {
     setSearchVal(searchRef.current!.value);
   }
 
-  console.log({articles})
   return (
     <>
-    <div className='flex flex-row items-center justify-between'>
-      <form onSubmit={handleSearch} className='flex flex-row items-center gap-3'>
+    <div className='mb-3'>
+      <form onSubmit={handleSearch} className='w-full flex flex-row flex-wrap items-center gap-2'>
         <Input 
           type="search" 
           name='search'
           id="search"
           placeholder='Type author name or article title' 
-          className='p-3 border rounded-md my-2 w-[20rem]' 
+          className='p-3 border rounded-md lg:my-2 w-[75%] md:w-1/4' 
           ref={searchRef}
         />
 
@@ -36,13 +35,13 @@ const ViewArticles = () => {
         </Button>
       </form>
     
-      <div>
+      <p className='mb-0 text-[14px] text-gray-800'>
         {!isLoading && articles && articles.length > 0 && <>Total results: {articles.length}</>}
-      </div>
+      </p>
     </div>
       
 
-      <div className='grid grid-cols-2 gap-4'>
+      <div className='grid lg:grid-cols-2 grid-cols-1 gap-4'>
         {
           isLoading && <>Loading articles...</>
         }

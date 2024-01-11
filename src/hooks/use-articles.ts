@@ -19,8 +19,6 @@ const useArticles = () => {
 
             setArticles(data);
             articlesCache.current = data;
-
-            console.log({articlesCache})
         
             return data as Article[];
         }
@@ -31,11 +29,6 @@ const useArticles = () => {
         
         return articles;
     }
-
-    // const { isLoading, refetch } = useQuery({
-    //     queryKey: ['articles', searchVal],
-    //     queryFn: getArticles,
-    // });
 
     useEffect(() => {
         getArticles();

@@ -90,11 +90,11 @@ const CreateArticle = () => {
 
   return (
     <div className='w-full container'>
-      <Card className='w-[50%] mx-auto my-[5%]'>
+      <Card className='lg:w-1/2 w-full mx-auto my-[5%]'>
         <CardHeader className='mb-2 font-bold text-xl'>Publish article</CardHeader>
         <CardContent>
           <form onSubmit={formik.handleSubmit} className='w-full mx-auto flex flex-col gap-2'>
-            <div className='grid grid-cols-2 gap-3'>
+            <div className='grid lg:grid-cols-2 grid-cols-1 gap-3'>
               <div>
                 <Label htmlFor='firstname'>First name</Label>
                 <Input 
@@ -103,7 +103,7 @@ const CreateArticle = () => {
                   name='firstname'
                   id="firstname"
                   placeholder='First name' 
-                  className='p-3 border rounded-md w-[20rem]' 
+                  className='p-3 border rounded-md w-full' 
                   formik={formik}
                   value={formik.values.firstname}
                   onBlur={formik.handleBlur}
@@ -119,7 +119,7 @@ const CreateArticle = () => {
                   name='lastname'
                   id="lastname"
                   placeholder='Last name' 
-                  className='p-3 border rounded-md w-[20rem]' 
+                  className='p-3 border rounded-md w-full' 
                   formik={formik}
                   value={formik.values.lastname}
                   onBlur={formik.handleBlur}
@@ -129,7 +129,7 @@ const CreateArticle = () => {
               </div>
             </div>
             
-            <div className='grid grid-cols-2 gap-3'>
+            <div className='grid lg:grid-cols-2 grid-cols-1 gap-3'>
               <div>
                 <Label htmlFor='phone'>Phone</Label>
                 <Input 
@@ -138,7 +138,7 @@ const CreateArticle = () => {
                   role='textbox'
                   id="phone"
                   placeholder='Phone number' 
-                  className='p-3 border rounded-md w-[20rem]' 
+                  className='p-3 border rounded-md w-full' 
                   onBlur={formik.handleBlur}
                   formik={formik}
                   value={formik.values.phone}
@@ -154,7 +154,7 @@ const CreateArticle = () => {
                   role='textbox'
                   id="email"
                   placeholder='Email' 
-                  className='p-3 border rounded-md w-[20rem]' 
+                  className='p-3 border rounded-md w-full' 
                   onBlur={formik.handleBlur}
                   formik={formik}
                   onChange={formik.handleChange}

@@ -53,7 +53,7 @@ export const ArticlesProvider = ({ children }: PropsWithChildren) => {
             if (articlesCache.current) {
                 articlesCache.current!.forEach((article) => {
                     const articleAuthor = usersCache[article.userId];
-                    if (article.title.toLowerCase().includes(searchVal)) {
+                    if (article.title.toLowerCase().includes(searchVal.toLowerCase())) {
                         filteredArticles.add(article);
                     }
                     if (articleAuthor.name.toLowerCase().includes(searchVal.toLowerCase())) {
