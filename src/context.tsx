@@ -6,6 +6,7 @@ import { getAllUsers } from "./adapter/user";
 type ContextState = {
     articles: Article[] | undefined
     setArticles: Dispatch<React.SetStateAction<Article[] | undefined>>
+    searchVal: string
     setSearchVal: Dispatch<React.SetStateAction<string>>,
     isLoading: boolean,
     usersCache: UsersCache,
@@ -30,7 +31,6 @@ export const ArticlesProvider = ({ children }: PropsWithChildren) => {
             articlesCache.current = [article, ...articlesCache.current!];
 
             setArticles(articlesCache.current);
-            console.log({article}, articlesCache.current[0])
     
             return articlesCache.current;
         }
@@ -48,15 +48,17 @@ export const ArticlesProvider = ({ children }: PropsWithChildren) => {
 
     useEffect(() => {
         if (articles) {
+            
+            console.log("triggered filtering", {searchVal})
             const filteredArticles = new Set<Article>()
             
             if (articlesCache.current) {
                 articlesCache.current!.forEach((article) => {
                     const articleAuthor = usersCache[article.userId];
-                    if (article.title.toLowerCase().includes(searchVal.toLowerCase())) {
+                    if (article.title.toLowerCase().includes(searchVal.toLowerCase().trim())) {
                         filteredArticles.add(article);
                     }
-                    if (articleAuthor.name.toLowerCase().includes(searchVal.toLowerCase())) {
+                    if (articleAuthor.name.toLowerCase().includes(searchVal.toLowerCase().trim())) {
                         filteredArticles.add(article);
                     }
                 });
@@ -67,11 +69,14 @@ export const ArticlesProvider = ({ children }: PropsWithChildren) => {
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchVal]);
+
+    console.log({searchVal})
   
     return (
         <ArticlesContext.Provider value={{ 
             articles, 
             setArticles, 
+            searchVal,
             setSearchVal, 
             isLoading,
             usersCache,
