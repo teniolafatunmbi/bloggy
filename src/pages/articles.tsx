@@ -15,7 +15,7 @@ const ViewArticles = () => {
 
   return (
     <>
-    <div className='flex flex-row justify-between'>
+    <div className='flex flex-row items-center justify-between'>
       <form onSubmit={handleSearch} className='flex flex-row items-center gap-3'>
         <Input 
           type="search" 
@@ -28,7 +28,7 @@ const ViewArticles = () => {
 
         <Button 
           variant={'outline'} 
-          className='p-6 bg-gray-300'
+          className='p-4 bg-gray-300'
           type='submit'
         >
           Search

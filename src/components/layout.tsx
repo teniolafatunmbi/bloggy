@@ -7,14 +7,14 @@ const Layout = ({ children }: React.PropsWithChildren) => {
     
     <div className='w-screen h-screen grid grid-cols-12'>
          <aside className='px-4 py-2 col-span-2 border border-r-black/10'>
-            <ul>
-                <li className='mb-0 p-4'>
-                    <Link to={'/'}>
+            <ul className='flex flex-col gap-3 my-6'>
+                <li className='mb-0 border border-gray-500 cursor-pointer'>
+                    <Link to={'/'} className='inline-block w-full p-4'>
                         See all articles
                     </Link>
                 </li>
-                <li className='mb-0 p-4'>
-                    <Link to={'/create-article'}>
+                <li className='mb-0 border border-gray-500 cursor-pointer'>
+                    <Link to={'/create-article'} className='inline-block w-full p-4'>
                         Create article
                     </Link>
                 </li>
